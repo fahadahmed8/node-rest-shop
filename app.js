@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const productRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
 
-mongoose.connect('mongodb+srv://node-rest:inter@node-rest-shop-zjvv0.mongodb.net/test?retryWrites=true', {
+mongoose.connect('your_connection_string', {
 	useMongoClient: true
 });
 
