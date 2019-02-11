@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const productRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
 
-mongoose.connect('your_connection_string', {
+mongoose.connect('your_DB_URL', {
 	useMongoClient: true
 });
 
