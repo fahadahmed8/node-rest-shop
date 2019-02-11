@@ -9,7 +9,13 @@ router.get('/', (req, res, next) => {
 		.exec()
 		.then((docs) => {
 			console.log(docs);
+			// if (docs.length >= 0) {
 			res.status(200).json(docs);
+			// } else {
+			// 	res.status(404).json({
+			// 		message: 'No entry found'
+			// 	});
+			// }
 		})
 		.catch((err) => {
 			console.log(err);
@@ -73,15 +79,36 @@ router.get('/:productId', (req, res, next) => {
 });
 
 router.patch('/:productId', (req, res, next) => {
-	res.status(200).json({
-		message: 'You have updated product'
-	});
+	const id = req.params.productId;
+	const updateOps = {};
+	for (const ops of req.body) {
+		updateOps[ops.propName] = ops.value;
+	}
+	Product.update({ _id: id }, { $set: updateOps })
+		.exec()
+		.then((result) => {
+			console.log(res);
+			res.status(200).json(result);
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
 });
 
 router.delete('/:productId', (req, res, next) => {
-	res.status(200).json({
-		message: 'You have deleted product'
-	});
+	const id = req.params.productId;
+	Product.remove({ _id: id })
+		.exec()
+		.then((result) => {
+			res.status(200).json(result);
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json({ error: err });
+		});
 });
 
 module.exports = router;
