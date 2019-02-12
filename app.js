@@ -7,9 +7,11 @@ const mongoose = require('mongoose');
 const productRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
 
-mongoose.connect('your_DB_URL', {
+mongoose.connect('mongodb+srv://node-rest:inter@node-rest-shop-zjvv0.mongodb.net/test?retryWrites=true', {
 	useMongoClient: true
 });
+
+mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
